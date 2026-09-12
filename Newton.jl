@@ -35,13 +35,13 @@ end
 # DADOS DO PROBLEMA ----------------------
 
 # Função
-f(x) = x^2 + x - 6
+f(x) = x^2 -5 
 
 # Derivada
-df(x) = 2x + 1
+df(x) = 2x
 
 # Chute inicial
-x0 = 1.0
+x0 = 2.0
 
 # Tolerância
 tol = 0.0001

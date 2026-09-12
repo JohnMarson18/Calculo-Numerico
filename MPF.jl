@@ -39,10 +39,10 @@ end
 # ==========================================
 
 # Coloque aqui a sua função g(x)
-g(x) = sqrt(6 - x)
+g(x) = (6-x^2)
 
 # Chute inicial
-x0 = 1.0
+x0 = 2.0
 
 # Tolerância
 tol = 0.0001
