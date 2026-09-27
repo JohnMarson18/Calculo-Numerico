@@ -1,31 +1,23 @@
-# ==========================================
+# Dupla: Paulo Fernando P Junior e Davi Rodrigues
 # MÉTODO DA BISSECÇÃO
-# ==========================================
 
-function bisseccao(f, a, b, tol, max_iter)
-
-    # Verifica se existe mudança de sinal
+function bissecao(f, a, b, tol, maxiter)
     if f(a) * f(b) > 0
         println("Não há garantia de raiz no intervalo.")
-        return
+        return nothing, 0
     end
 
-
-    for i in 1:max_iter
-
-        # Ponto médio
+    for i in 1:maxiter
         x = (a + b) / 2
 
-        println("iteração", i, " |a: ", a, " |b: ", b, " |x: ", x, " |f(x): ", f(x))
+        println("iteração ", i, " |a: ", a, " |b: ", b, " |x: ", x, " |f(x): ", f(x))
 
-        # Critério de parada
-        if abs(f(x)) < tol || abs(b - a) < tol
+        if (b - a) / 2 < tol
             println("\nRaiz aproximada: ", x)
             println("Número de iterações: ", i)
-            return x
+            return x, i
         end
 
-        # Escolhe o novo intervalo
         if f(a) * f(x) < 0
             b = x
         else
@@ -34,26 +26,17 @@ function bisseccao(f, a, b, tol, max_iter)
     end
 
     println("\nMétodo não convergiu dentro do número máximo de iterações.")
-
+    return nothing, maxiter
 end
 
+# DADOS
+f(x) = x^3 - x - 2
 
-# ==========================================
-# Esse método acha somente uma raiz por vez. 
-# ==========================================
+a = 1.0
+b = 2.0
 
-#Função
-f(x) = x^2 + x - 6                 
-
-#Ranges
-a = -5
-b = 0
-
-#tolerancia
 tol = 0.0001
+maxiter = 100
 
-#iterações maximas
-max_iter = 100
-
-
-bisseccao(f, a, b, tol, max_iter)
+# EXECUÇÃO
+raiz, iter = bissecao(f, a, b, tol, maxiter)

@@ -1,13 +1,10 @@
-# MÉTODO DE NEWTON
+# Dupla: Paulo Fernando P Junior e Davi Rodrigues
+# MÉTODO DE NEWTON-RAPHSON
 
-function newton(f, df, x0, tol, max_iter)
-
-    for i in 1:max_iter
-
-        # Calcula o próximo ponto
+function newton(f, df, x0, tol, maxiter)
+    for i in 1:maxiter
         x = x0 - f(x0) / df(x0)
 
-        # Calcula o erro
         erro = abs(x - x0)
 
         println(
@@ -17,38 +14,27 @@ function newton(f, df, x0, tol, max_iter)
             " | erro = ", erro
         )
 
-        # Critério de parada
         if erro < tol
             println("\nRaiz aproximada: ", x)
             println("Número de iterações: ", i)
-            return x
+            return x, i
         end
 
-        # Atualiza x
         x0 = x
     end
 
     println("\nMétodo não convergiu dentro do número máximo de iterações.")
-
+    return nothing, maxiter
 end
 
-# DADOS DO PROBLEMA ----------------------
+# DADOS
+f(x) = x^3 - x - 2
+df(x) = 3x^2 - 1
 
-# Função
-f(x) = x^2 + x - 6
+x0 = 1.5
 
-# Derivada
-df(x) = 2x + 1
-
-# Chute inicial
-x0 = 1.0
-
-# Tolerância
 tol = 0.0001
-
-# Número máximo de iterações
-max_iter = 100
-
+maxiter = 100
 
 # EXECUÇÃO
-newton(f, df, x0, tol, max_iter)
+raiz, iter = newton(f, df, x0, tol, maxiter)

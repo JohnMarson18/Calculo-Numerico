@@ -1,28 +1,41 @@
-function secante(f, a, b, tol, max_iter)
-    for _ in 1:max_iter
-        fa = f(a)
-        fb = f(b)
-        print("\na: ", a," f(a): ",fa, " b: ",b," f(b): ",fb)
-        if fb == fa
-            return b
+# Dupla: Paulo Fernando P Junior e Davi Rodrigues
+# MÉTODO DA SECANTE
+
+function secante(f, x0, x1, tol, maxiter)
+    for i in 1:maxiter
+        fx0 = f(x0)
+        fx1 = f(x1)
+
+        println("Iteração ", i, " | x0: ", x0, " | f(x0): ", fx0, " | x1: ", x1, " | f(x1): ", fx1)
+
+        if fx1 == fx0
+            println("Divisão por zero detectada.")
+            return x1, i
         end
-        
-        x = b - fb * (b - a) / (fb - fa)
-        
-        if abs(x - b) < tol
-            return x
+
+        x_novo = x1 - fx1 * (x1 - x0) / (fx1 - fx0)
+
+        if abs(x_novo - x1) < tol
+            println("\nRaiz aproximada: ", x_novo)
+            println("Número de iterações: ", i)
+            return x_novo, i
         end
-        
-        a, b = b, x
+
+        x0, x1 = x1, x_novo
     end
-    return b
+
+    println("\nMétodo não convergiu dentro do número máximo de iterações.")
+    return x1, maxiter
 end
 
-f(x) = x^2 + x - 6
-a = -5
-b = 0
-tol = 1e-6
-max_iter = 50
+# DADOS
+f(x) = x^3 - x - 2
 
-raiz = secante(f, a, b, tol, max_iter)
-println("\nRaiz encontrada: ", raiz)
+x0 = 1.0
+x1 = 2.0
+
+tol = 0.0001
+maxiter = 100
+
+# EXECUÇÃO
+raiz, iter = secante(f, x0, x1, tol, maxiter)

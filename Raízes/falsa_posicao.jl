@@ -1,31 +1,27 @@
-# === INSIRA AQUI ===
-f(x) = x^5 - 5*x + 1
-a = 0.0
-b = 0.5
-tolerancia = 1e-14
-maximo_iteracoes = 50000000
-# ===================
+# Dupla: Paulo Fernando P Junior e Davi Rodrigues
+# MÉTODO DA FALSA POSIÇÃO
 
-# --- Lógica do Método (Não alterar) ---
-function falsa_posicao(f, a, b, tol, max_iter)
+function falsa_posicao(f, a, b, tol, maxiter)
     fa, fb = f(a), f(b)
 
     if fa == 0
-        return a
+        return a, 0
     elseif fb == 0
-        return b
+        return b, 0
     elseif fa * fb > 0
-        error("Não ha raiz nesse intervalo. f(a) e f(b) devem ter sinais opostos.")
+        error("Não há raiz nesse intervalo. f(a) e f(b) devem ter sinais opostos.")
     end
 
-    for i in 1:max_iter
+    for i in 1:maxiter
         x = a - fa * (b - a) / (fb - fa)
         fx = f(x)
 
-        print("\n iteração ",i, " a: ", a, " b: ",b, " f(a): ", fa, " f(b): ", fb)
+        println("Iteração ", i, " | a: ", a, " | b: ", b, " | x: ", x, " | f(x): ", fx)
 
-        if abs(fx) <= tol
-            return x
+        if abs(fx) < tol
+            println("\nRaiz aproximada: ", x)
+            println("Número de iterações: ", i)
+            return x, i
         elseif fa * fx < 0
             b, fb = x, fx
         else
@@ -33,9 +29,18 @@ function falsa_posicao(f, a, b, tol, max_iter)
         end
     end
 
-    return nothing 
+    println("\nMétodo não convergiu dentro do número máximo de iterações.")
+    return nothing, maxiter
 end
 
-# Aqui as suas variáveis entram direto na função
-raiz = falsa_posicao(f, a, b, tolerancia, maximo_iteracoes)
-println("\n Raiz aproximada: ", raiz)
+# DADOS
+f(x) = x^3 - x - 2
+
+a = 1.0
+b = 2.0
+
+tol = 0.0001
+maxiter = 100
+
+# EXECUÇÃO
+raiz, iter = falsa_posicao(f, a, b, tol, maxiter)
